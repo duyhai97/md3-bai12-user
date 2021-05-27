@@ -10,20 +10,60 @@
 <html>
 <head>
     <title>List user</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button{
+            border-radius: 8px;
+            background: aqua;
+        }
+        body{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <h1>List user</h1>
-<p>
-    <a href="/users?action=create">Thêm mới người dùng</a>
-</p>
 
-<table border="1px">
+
+<%--<form action="/users?action=search" method="post">--%>
+<%--    <input type="text" placeholder="Tìm kiếm" name="aaa">--%>
+<%--    <select name="select" id="select">--%>
+<%--        <option value="name">Name</option>--%>
+<%--        <option value="email">Email</option>--%>
+<%--        <option value="country">Country</option>--%>
+<%--    </select>--%>
+<%--    <button>Nhập</button>--%>
+<%--</form>--%>
+
+<h2><a href="/">Trở về tang chủ</a></h2>
+
+<form action="/users?action=sortByName" method="post">
+    <button>Sắp xếp theo tên</button>
+</form>
+<table>
     <tr>
-        <td>Tên người dùng</td>
-        <td>Địa chỉ email</td>
-        <td>Quốc tịch</td>
-        <td></td>
-        <td></td>
+        <th>Tên người dùng</th>
+        <th>Địa chỉ email</th>
+        <th>Quốc tịch</th>
+        <th></th>
+        <th></th>
     </tr>
     <c:forEach items='${requestScope["users"]}' var="u">
         <tr>

@@ -18,7 +18,7 @@
 </head>
 <body>
 <h1>Thêm người dùng</h1>
-<p><a href="/users"> Quay lại </a></p>
+<p><a href="/"> Quay lại </a></p>
 <c:if test='${requestScope["message"] != null}'>
     <span class="message">${requestScope["message"]}</span>
 </c:if>

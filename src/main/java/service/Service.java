@@ -16,4 +16,18 @@ public interface Service {
 
     void remote(int id);
 
+//    User findByName(String name);
+
+    List<User> searchByName(String name);
+
+    List<User> searchByEmail(String email);
+
+    List<User> searchByCountry(String country);
+
+
+
+    List<User> sortByName();
+
+    List<User> timkiem(String value);
+
 }

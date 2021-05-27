@@ -105,6 +105,15 @@ public class Servlet extends HttpServlet {
             case "delete":
                 deleteUser(request,response);
                 break;
+            case "search":
+                search(request,response);
+                break;
+            case "sortByName":
+                sortByName(request,response);
+                break;
+            case "timkiem":
+                timkiemU(request,response);
+                break;
 
 
         }
@@ -112,6 +121,65 @@ public class Servlet extends HttpServlet {
             throwables.printStackTrace();
         }
     }
+
+    private void timkiemU(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String value = request.getParameter("value");
+        List<User> userList = this.service.timkiem(value);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("users/timkiem.jsp");
+        request.setAttribute("userList", userList);
+        dispatcher.forward(request,response);
+
+    }
+
+    private void sortByName(HttpServletRequest request, HttpServletResponse response) {
+        List<User> users = this.service.sortByName();
+        request.setAttribute("users", users);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("users/sortByName.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String select = request.getParameter("select");
+        switch (select){
+            case "name":
+                String name = request.getParameter("aaa");
+                List<User> userList = this.service.searchByName(name);
+                RequestDispatcher dispatcher;
+                if (userList == null) dispatcher = request.getRequestDispatcher("error-404.jsp");
+                else dispatcher = request.getRequestDispatcher("users/searchByName.jsp");
+                request.setAttribute("userList",userList);
+                dispatcher.forward(request,response);
+                break;
+            case "email":
+                String email = request.getParameter("aaa");
+                List<User> userList1 = this.service.searchByEmail(email);
+                RequestDispatcher dispatcher1 = null;
+                if (userList1 == null) dispatcher1 = request.getRequestDispatcher("error-404.jsp");
+                else dispatcher1 = request.getRequestDispatcher("users/searchByEmail.jsp");
+                request.setAttribute("userList1",userList1);
+                dispatcher1.forward(request,response);
+                break;
+            case "country":
+                String country = request.getParameter("aaa");
+                List<User> userList2 = this.service.searchByCountry(country);
+                RequestDispatcher dispatcher2 = null;
+                if (userList2 == null) dispatcher2 = request.getRequestDispatcher("error-404.jsp");
+                else dispatcher2 = request.getRequestDispatcher("users/searchByCountry.jsp");
+                request.setAttribute("userList2",userList2);
+                dispatcher2.forward(request,response);
+                break;
+
+        }
+
+    }
+
+
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
